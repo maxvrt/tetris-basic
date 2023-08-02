@@ -184,6 +184,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
             timerId = null;
         } else {
             draw();
+            // note основная запускающая функция
             timerId = setInterval(moveDown, 1000);
             nextRandom = Math.floor(Math.random()*Figures.length);
             displayShape();
