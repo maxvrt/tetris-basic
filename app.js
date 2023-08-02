@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", ()=>{
     const grid = document.querySelector('.grid')
-    let squares = Array.from(document.querySelectorAll('.grid div'))
+    let divs = Array.from(document.querySelectorAll('.grid div'))
     const width = 10;
     const scoreDisplay = document.querySelector('#score');
     const startBtn = document.querySelector('#start-button');
@@ -53,15 +53,15 @@ document.addEventListener("DOMContentLoaded", ()=>{
 
     function draw() {
         current.forEach(index => {
-            squares[currentPosition + index].classList.add('tetromino');
-            squares[currentPosition + index].style.backgroundColor = colors[random];
+            divs[currentPosition + index].classList.add('tetromino');
+            divs[currentPosition + index].style.backgroundColor = colors[random];
         })
     }
 
     function undraw() {
         current.forEach(index => {
-            squares[currentPosition + index].classList.remove('tetromino');
-            squares[currentPosition + index].style.backgroundColor = '';
+            divs[currentPosition + index].classList.remove('tetromino');
+            divs[currentPosition + index].style.backgroundColor = '';
 
         })
     }
@@ -87,8 +87,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
     }
 
     function freeze() {
-        if(current.some(index => squares[currentPosition + index + width].classList.contains('taken'))) {
-            current.forEach(index => squares[currentPosition + index].classList.add('taken'))   ;
+        if(current.some(index => divs[currentPosition + index + width].classList.contains('taken'))) {
+            current.forEach(index => divs[currentPosition + index].classList.add('taken'))   ;
             random = nextRandom;
             nextRandom = Math.floor(Math.random() * Figures.length);
             current = Figures[random][currentRotation];
@@ -104,7 +104,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         undraw();
         const isAtLeftEdge = current.some(index => (currentPosition + index) % width === 0);
         if(!isAtLeftEdge) currentPosition -=1;
-        if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+        if(current.some(index => divs[currentPosition + index].classList.contains('taken'))) {
             currentPosition +=1;
         }
         draw();
@@ -114,7 +114,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         undraw();
         const isAtRightEdge = current.some(index => (currentPosition + index) % width === width -1);
         if(!isAtRightEdge) currentPosition +=1;
-        if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+        if(current.some(index => divs[currentPosition + index].classList.contains('taken'))) {
             currentPosition -=1;
         }
         draw();
@@ -154,7 +154,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         checkRotatedPosition();
         draw();
     }
-    const displaySquares = document.querySelectorAll('.mini-grid div');
+    const displayDivs = document.querySelectorAll('.mini-grid div');
     const displayWidth = 4;
     const displayIndex = 0;
 
@@ -168,13 +168,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
     ];
 
     function displayShape() {
-        displaySquares.forEach(square => {
+        displayDivs.forEach(square => {
             square.classList.remove('tetromino');
             square.style.backgroundColor = '';
         })
         upNextTetrominoes[nextRandom].forEach( index => {
-            displaySquares[displayIndex + index].classList.add('tetromino');
-            displaySquares[displayIndex + index].style.backgroundColor = colors[nextRandom];
+            displayDivs[displayIndex + index].classList.add('tetromino');
+            displayDivs[displayIndex + index].style.backgroundColor = colors[nextRandom];
         })
     }
 
@@ -193,23 +193,23 @@ document.addEventListener("DOMContentLoaded", ()=>{
      function addScore() {
         for (let i = 0; i < 199; i +=width) {
             const row = [i, i+1, i+2, i+3, i+4, i+5, i+6, i+7, i+8, i+9];
-            if(row.every(index => squares[index].classList.contains('taken'))) {
+            if(row.every(index => divs[index].classList.contains('taken'))) {
                 score +=10;
                 scoreDisplay.innerHTML = score;
                 row.forEach(index => {
-                    squares[index].classList.remove('taken');
-                    squares[index].classList.remove('tetromino');
-                    squares[index].style.backgroundColor = '';
+                    divs[index].classList.remove('taken');
+                    divs[index].classList.remove('tetromino');
+                    divs[index].style.backgroundColor = '';
                 })
-                const squaresRemoved = squares.splice(i, width);
-                squares = squaresRemoved.concat(squares);
-                squares.forEach(cell => grid.appendChild(cell));
+                const divsRemoved = divs.splice(i, width);
+                divs = divsRemoved.concat(divs);
+                divs.forEach(cell => grid.appendChild(cell));
             }
         }
     }
 
     function gameOver() {
-        if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
+        if(current.some(index => divs[currentPosition + index].classList.contains('taken'))) {
             scoreDisplay.innerHTML = 'end';
             clearInterval(timerId);
         }
