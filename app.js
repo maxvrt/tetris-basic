@@ -88,6 +88,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
     }
 
     function freeze() {
+        // "+ width" это на одну строку ниже
         if(current.some(index => divs[currentPosition + index + width].classList.contains('taken'))) {
             current.forEach(index => divs[currentPosition + index].classList.add('taken'))   ;
             random = nextRandom;
