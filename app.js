@@ -46,6 +46,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
         [width,width+1,width+2,width+3]
     ];
     const Figures = [lFigure, zFigure, tFigure, oFigure, iFigure];
+    // from left
     let currentPosition = 4;
     let currentRotation = 0;
     let random = Math.floor(Math.random()*Figures.length);
